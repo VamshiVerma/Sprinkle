@@ -1,0 +1,98 @@
+﻿<Page
+    x:Class="WeatherTalk.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WeatherTalk"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Loaded="Page_Loaded"
+
+    mc:Ignorable="d" RequestedTheme="Dark">
+    <Page.Background>
+        <ImageBrush Stretch="UniformToFill" ImageSource="Assets/Backgrounds/BingWallpaper-2015-05-09.jpg"/>
+    </Page.Background>
+
+    <Grid RenderTransformOrigin="0.574,0.568">
+        <!--Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Margin="12,0,0,0" Grid.ColumnSpan="2" RenderTransformOrigin="0.598,0.498">
+
+            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" 
+                      Name="head" HorizontalAlignment="Left" Margin="12,12,12,12" TextWrapping="Wrap" Text="Sprinkle" VerticalAlignment="Top"/>
+            
+                
+            <TextBox x:Name="txtLocation" PlaceholderText="Enter the city name"  Margin="12,0,12,0"  RequestedTheme="Light" MaxWidth="400" HorizontalAlignment="Stretch"/>
+            
+            
+            <TextBlock x:Name="lblTempHigh" Style="{ThemeResource BodyTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="12,12,12,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="lblTempLow" Style="{ThemeResource BodyTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="12,0,12,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="lblTemp" Text="" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12,12,12,0" FontSize="84"/>
+            <TextBlock x:Name="lblLocation" Text="" Style="{ThemeResource SubheaderTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12,0,12,0"/>
+            <TextBlock x:Name="hi" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+
+            <ProgressRing x:Name="prgActivity"
+                          IsActive="False"
+                          Foreground="White"
+                          Height="48"
+                          Width="48"/>
+
+        </StackPanel>
+        <Frame Name="MyFrame" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
+
+        <RelativePanel Margin="10,0,0,20" Grid.RowSpan="2" Grid.Column="1">
+            <TextBlock x:Name="txtCity" Style="{ThemeResource HeaderTextBlockStyle}" 
+                       Text="" TextWrapping="Wrap"  RelativePanel.AlignRightWithPanel="True"
+                       HorizontalAlignment="Right" Margin="12,180,0,7" FontSize="40"/>
+            <!--<TextBlock x:Name="txtLastUpdate"
+                       RelativePanel.Below="txtCity"
+                       Style="{ThemeResource BodyTextBlockStyle}" Text=""  Margin="12,30,12,0" TextWrapping="Wrap" HorizontalAlignment="ce" FontSize="28"/>-->
+
+            <TextBlock x:Name="txtCel"
+                     Text="" Style="{ThemeResource HeaderTextBlockStyle}"
+                   RelativePanel.Below="txtCity" RelativePanel.AlignRightWithPanel="True"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom" Margin="12,0,12,0" FontSize="84" />
+            <TextBlock x:Name="txtDescription"
+                           Text=""
+                       RelativePanel.Below="txtCel" RelativePanel.AlignRightWithPanel="True"
+                           Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" FontSize="20"
+                           TextAlignment="Center" Margin="12,2,12,0"
+                           />
+            <!--<TextBlock x:Name="txtHumidity"
+                           Text="" RelativePanel.Below="txtDescription"
+                           Style="{ThemeResource BodyTextBlockStyle}" Margin="12,30,12,0" HorizontalAlignment="Left"/>-->
+            <TextBlock x:Name="txtHumidity"
+                           Text="" RelativePanel.Below="txtDescription" RelativePanel.AlignRightWithPanel="True"
+                           Style="{ThemeResource BodyTextBlockStyle}" Margin="12,0,12,0" HorizontalAlignment="Left"/>
+            <!--<TextBlock x:Name="txtTime"
+                           Text="" RelativePanel.Below="txtsea"
+                           Style="{ThemeResource BodyTextBlockStyle}" Margin="12,30,12,0" HorizontalAlignment="Left"/>-->
+            
+        </RelativePanel>
+        
+        <Button Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" BorderThickness="0" x:Name="map" Click="btnGetWeather_Click" Width="45" Height="40" Grid.ColumnSpan="2" Margin="140,17,175,9.667" Background="PowderBlue">
+            <Image Source="Assets/Square44x44Logo.scale-100.png" Stretch="UniformToFill"   ></Image>
+        </Button>
+        <TextBlock x:Name="fact" Grid.Row="1"
+                           Text=""
+                           Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,5,5,20"/>
+
+
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar Opacity="0.75">
+            <AppBarButton Label="lookup" Icon="Find" Click="ButtonLookup_Click"/>
+
+
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

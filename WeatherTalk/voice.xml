@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
+  <CommandSet xml:lang="en-us" Name="ExampleAppCommandSet_en-us">
+    <CommandPrefix> sprinkle, </CommandPrefix>
+    <Example> weather in texas </Example>
+
+    <Command Name="cityv">
+      <Example> weather in texas   </Example>
+      <ListenFor> [what] [is] [the] [current] [weather] [in]  {city} </ListenFor>
+      <Feedback> Sprinkling up </Feedback>
+      <Navigate/>
+    </Command>
+
+    
+
+  </CommandSet>
+
+  <!-- Other CommandSets for other languages -->
+
+</VoiceCommands>
