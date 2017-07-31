@@ -169,7 +169,7 @@ namespace WeatherTalk
                         destination = speechRecognitionResult.SemanticInterpretation.Properties["location"][0];
                         break;
                      case   "refresh":
-                            page.Refresh();
+                          
                             break;
                         default:
                         // There is no match for the voice command name. Navigate to MainPage

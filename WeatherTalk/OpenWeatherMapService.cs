@@ -8,11 +8,7 @@ using System.Diagnostics;
 
 namespace WeatherTalk
 {
-    /// <summary>
-    /// Weather Service class to call the OpenWeatherMap API
-    /// For live documentation in a Xamarin Workbook on this service class, please refer to
-    /// https://github.com/ActiveNick/ActiveNick-Xamarin-Workbooks/tree/master/OpenWeatherMap
-    /// </summary>
+   
     class OpenWeatherMapService
     {
         // TO DO: Get your own API key from http://openweathermap.org, don't use mine
@@ -20,6 +16,8 @@ namespace WeatherTalk
         // URI used to get basic weather data. The API key is optional but your request may get denied
         // if you do not include one.
         private const string APIUrl = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID=" + APIKey;
+        private const string APIUrl2 = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID=" + APIKey;
+        private const string APIUrl3 = " http://api.openweathermap.org/data/2.5/weather?q={0},{1}units=metric&APPID=" + APIKey;
         public static string API_LINK = "http://api.openweathermap.org/data/2.5/weather";
         public static string API_KEY = "9f85dd96a0e5e49f4292e43c9795bddc";
 
@@ -40,6 +38,18 @@ namespace WeatherTalk
             // Deserialize the JSON results into a WeatherRoot object using JSON.NET
             return JsonConvert.DeserializeObject<WeatherRoot>(json);
         }
+        public async Task<WeatherRoot> GetWeatherZ(string code,string country)
+        {
+            var client = new HttpClient();
+            var url = string.Format(APIUrl, code,country);
+            var json = await client.GetStringAsync(url);
+
+            if (string.IsNullOrWhiteSpace(json))
+                return null;
+
+            // Deserialize the JSON results into a WeatherRoot object using JSON.NET
+            return JsonConvert.DeserializeObject<WeatherRoot>(json);
+        }
 
         public static string APIRequest(string lat, string lon)
         {
@@ -48,8 +58,6 @@ namespace WeatherTalk
             strBuilder.AppendFormat("?lat={0}&lon={1}&APPID={2}&units=metric", lat, lon, API_KEY);
             return strBuilder.ToString();
         }
-
-
 
         public static async Task<WeatherRoot> GetWeather2(string lat, string lon)
         {
@@ -63,6 +71,29 @@ namespace WeatherTalk
                     try
                     {
                         var users = JsonConvert.DeserializeObject<WeatherRoot>(resultText);
+                        return users;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(resultText);
+                        return null;
+                    }
+                }
+                return null;
+            }
+        }
+        public static async Task<RootObject> GetWeather3(string lat, string lon)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(APIRequest(lat, lon));
+                var resultText = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) // 200 - OK
+                {
+                    try
+                    {
+                        var users = JsonConvert.DeserializeObject<RootObject>(resultText);
                         return users;
                     }
                     catch (Exception ex)
